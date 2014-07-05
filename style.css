@@ -1,0 +1,31 @@
+.scale-style{
+        position: absolute;
+         z-index: 10000;
+        background: url('scale.png') no-repeat 0 0;
+        width: 500px;
+        height: 100px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        cursor: pointer;
+      }
+
+#pixel-marker {
+    color: red;
+    width: 1px;
+    height: 80px;
+    background: red;
+    position: relative;
+    z-index: 10001;
+    top: 0;
+    left: 0;
+    line-height: 150px;
+    font-weight: bold;
+    font-size: 20px;
+}
+.pixel-marker-hide {
+    display: none;
+}
+.pixel-marker-show {
+    display: inline-block;
+}
