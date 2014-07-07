@@ -1,9 +1,9 @@
 {
   "manifest_version": 2,
 
-  "name": "Test chrome extension",
-  "description": "testing chrome extension.",
-  "version": "1.0",
+  "name": "Pixel Scale",
+  "description": "Pixel scale is a tool to measure pixels",
+  "version": "1.0.0",
 
   "browser_action": {
     "default_icon": {

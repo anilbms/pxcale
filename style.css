@@ -1,7 +1,7 @@
 .scale-style{
         position: absolute;
          z-index: 10000;
-        background: url('scale.png') no-repeat 0 0;
+        background: #E7BD69;
         width: 500px;
         height: 100px;
         position: fixed;
@@ -10,7 +10,7 @@
         cursor: pointer;
       }
 
-#pixel-marker {
+#pxReader {
     color: red;
     width: 1px;
     height: 80px;
@@ -23,9 +23,9 @@
     font-weight: bold;
     font-size: 20px;
 }
-.pixel-marker-hide {
+.pixel-pxReader-hide {
     display: none;
 }
-.pixel-marker-show {
+.pixel-pxReader-show {
     display: inline-block;
 }
