@@ -12,10 +12,10 @@
 
 #pxReader {
     color: red;
-    width: 1px;
+    width: 1.2px;/* sometimes with width 1px scale marker is hidden */
     height: 80px;
     background: red;
-    position: relative;
+    position: fixed;
     z-index: 10001;
     top: 0;
     left: 0;

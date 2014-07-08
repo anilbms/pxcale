@@ -1,6 +1,6 @@
 (function (){
   
-  var self = Scale = {
+  var Scale = {
     init: function (config) {
       this.width = config.width;
       this.height = config.height;
@@ -8,7 +8,7 @@
       this.loadFiles();//load depency files
       this.create();
       this.makeDraggable();
-      this.canvas.addEventListener('click',this.activateClick);
+      this.activateClick();
     },
     create: function (){
       //create canvas element
@@ -104,31 +104,35 @@
               }
             }
     },
-    activateClick: function  (event) {
-      var canvas = this,
-          pxReader = document.querySelector('#pxReader'),
+    activateClick: function  () {
+
+      var self = this,
+          canvas = this.canvas,
+          pxReader = this.pxReader,
           ctx = canvas.getContext("2d"),
           position,
           markerLeftPosition;
-      if (canvas.getContext) {
-          if(this.mode === "hor") {
-            //position
-            pxReader.style.left = event.pageX - canvas.offsetLeft + "px";
-            pxReader.style.top = 0 + "px";
-            markerLeftPosition = event.pageX - div.offsetLeft + "px";
-          }
-          else if (this.mode === "ver") {
-            pxReader.style.left = 0 + "px";
-            pxReader.style.top = event.pageY - canvas.offsetTop + "px";
-            markerLeftPosition = event.pageY - canvas.offsetTop + "px";
-          }
-          //write content
-          pxReader.classList.remove('pixel-pxReader-hide');
-          pxReader.classList.add('pixel-pxReader-show');
-          pxReader.innerHTML="";
-          pxReader.innerHTML = "&nbsp;&nbsp;" + markerLeftPosition;
-      }
-    }.bind(self),
+          this.canvas.addEventListener('click', function (event){
+              if (canvas.getContext) {
+                  if(self.mode === "hor") {
+                    //position
+                    pxReader.style.left = event.pageX + "px";
+                    pxReader.style.top = canvas.offsetTop + "px";
+                    markerLeftPosition = event.pageX - canvas.offsetLeft + "px";
+                  }
+                  else if (self.mode === "ver") {
+                    pxReader.style.left = canvas.offsetLeft + "px";
+                    pxReader.style.top = event.pageY + "px";
+                    markerLeftPosition = event.pageY - canvas.offsetTop + "px";
+                  }
+                  //write content
+                  pxReader.classList.remove('pixel-pxReader-hide');
+                  pxReader.classList.add('pixel-pxReader-show');
+                  pxReader.innerHTML="";
+                  pxReader.innerHTML = "&nbsp;&nbsp;" + markerLeftPosition;
+              }
+          });
+    },
     makeDraggable: function  () {
       var canvas = this.canvas,
           pxReader = this.pxReader;
