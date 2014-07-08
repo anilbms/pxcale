@@ -13,7 +13,10 @@
     create: function (){
       //create canvas element
       var canvas = this.canvas = document.createElement('canvas'),
-          pxReader = this.pxReader = document.createElement('div');// meter reader shows meter value, pixel reader shows current pixel value
+          pxReader = this.pxReader = document.createElement('div'),
+          verIcon = this.verIcon = document.createElement('img'),
+          horIcon = this.horIcon = document.createElement('img'),// meter reader shows meter value, pixel reader shows current pixel value
+          canvasPosition = localStorage.getItem("scalePosition") ?  JSON.parse(localStorage.getItem("scalePosition")) : null;
       document.body.appendChild(canvas);
       document.body.appendChild(pxReader);
       //set attributes for canvas
@@ -21,7 +24,18 @@
       canvas.setAttribute("draggable", true);
       canvas.className= 'scale-style';
 
+      if (canvasPosition){
+        canvas.style.left = canvasPosition.left + "px";
+        canvas.style.top = canvasPosition.top + "px";
+      }
+
       pxReader.id = "pxReader";
+
+      // set icons
+      verIcon.src= chrome.extension.getURL("vertical.png");
+      verIcon.className = 'action-icons';
+      horIcon.src= chrome.extension.getURL("horizontal.png");
+      horIcon.className = 'action-icons';
 
       if(this.mode ==="hor") {
         this.drawHorScale();
@@ -44,7 +58,8 @@
         var ctx = canvas.getContext("2d"),
             initialPoint = 5;
         ctx.clearRect(0, 0, this.width, this.height);
-        for (var i = 5; i<=this.width; i=i+5){
+        //draw scale lines
+        /*for (var i = 5; i<=this.width; i=i+5){
             ctx.fillStyle = "rgb(0,0,0)";
 
           if (i%100 === 0){
@@ -68,7 +83,9 @@
           else {
             ctx.fillRect (i, 0, 1, 20);
           }
-        }
+        }*/
+        //place vertical icon
+        ctx.drawImage(this.verIcon, 0, 0, 32, 32);
       }
     },
     drawVerScale: function (){
@@ -139,7 +156,8 @@
 
       document.addEventListener('dragstart', function (event) {
           var eventData = event.dataTransfer;
-
+          pxReader.classList.add('pixel-pxReader-hide');
+          pxReader.classList.remove('pixel-pxReader-show');
           eventData.effectAllowed="move";
           eventData.dropEffect="move";
           adjustLeft = event.pageX - canvas.offsetLeft;
@@ -153,11 +171,15 @@
           event.preventDefault();
       });
       document.addEventListener('drop', function (event) {
-          var entData = event.dataTransfer;
+          var entData = event.dataTransfer
+              canvasTop =event.pageY - adjustTop,
+              canvasLeft = event.pageX - adjustLeft;
           event.stopPropagation();
           event.preventDefault();
-          canvas.style.top = event.pageY - adjustTop + "px";
-          canvas.style.left = event.pageX - adjustLeft  + "px";
+          canvas.style.top = canvasTop + "px";
+          canvas.style.left = canvasLeft  + "px";
+
+          localStorage.setItem('scalePosition',JSON.stringify({left:canvasLeft,top:canvasTop}));
       });
     }
   };

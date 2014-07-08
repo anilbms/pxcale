@@ -29,3 +29,7 @@
 .pixel-pxReader-show {
     display: inline-block;
 }
+.action-icons {
+    border: 1px solid #000;
+    border-radius: 1px;
+}
