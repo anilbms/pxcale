@@ -1,7 +1,7 @@
 .scale-style{
         position: absolute;
          z-index: 10000;
-        background: #E7BD69;
+        background: #E7B489;
         width: 500px;
         height: 100px;
         position: fixed;
@@ -13,7 +13,7 @@
 #pxReader {
     color: red;
     width: 1.2px;/* sometimes with width 1px scale marker is hidden */
-    height: 80px;
+    height: 50px;
     background: red;
     position: fixed;
     z-index: 10001;

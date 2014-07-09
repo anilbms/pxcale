@@ -56,10 +56,19 @@
       var canvas = document.querySelector("#canvas");
       if (canvas.getContext) {
         var ctx = canvas.getContext("2d"),
+            image = new Image(),
             initialPoint = 5;
+
         ctx.clearRect(0, 0, this.width, this.height);
+        //place vertical icon
+        image.onload = function  () {
+          ctx.drawImage(image, -5, 90, 32, 32);
+        };
+        image.className = 'action-icons';
+        image.src = chrome.extension.getURL("vertical.png");
+        
         //draw scale lines
-        /*for (var i = 5; i<=this.width; i=i+5){
+        for (var i = 5; i<=this.width; i=i+5){
             ctx.fillStyle = "rgb(0,0,0)";
 
           if (i%100 === 0){
@@ -83,9 +92,7 @@
           else {
             ctx.fillRect (i, 0, 1, 20);
           }
-        }*/
-        //place vertical icon
-        ctx.drawImage(this.verIcon, 0, 0, 32, 32);
+        }
       }
     },
     drawVerScale: function (){
